@@ -1,0 +1,93 @@
+https://code.visualstudio.com/docs/python/tutorial-django
+
+setting the virual environment : py -3 -m venv .venv
+select the interpreter : ctrl+shift+p >> python : Select Interpreter
+select environment : starting with ./.venv or .\.venv; 
+automatically activa; te the new terminal : ctrl + shift+' note change the terminal from powershell to cmd
+pip the virtual env :python -m pip install --upgrade pip
+installing django in venv : python -m pip install django
+
+
+
+
+1.Creating django project : django-admin startproject web_project .
+2.manage.py: The Django command-line administrative utility for the project. You run administrative commands for the project using python manage.py <command> [options].
+3.Create an empty development database by running the following command:
+
+python manage.py migrate;
+4.to verify whether the project is in venv : python manage.py runserver
+5.If you want to use a different port than the default 8000, specify the port number on the command line, such as python manage.py runserver 5000
+6.Ctrl+click the http://127.0.0.1:8000/ URL in the terminal output window to open your default browser to that address. 
+7. When you're done, close the browser window and stop the server in VS Code using Ctrl+C as indicated in the terminal output window.
+
+
+
+1.Creating the django app : python manage.py startapp hello [The command creates a folder called hello that contains a number of code files and one subfolder. Of these, you frequently work with views.py (that contains the functions that define pages in your web app) and models.py (that contains classes defining your data objects). The migrations folder is used by Django's administrative utility to manage database versions as discussed later in this tutorial. There are also the files apps.py (app configuration), admin.py (for creating an administrative interface), and tests.py (for creating tests), which are not covered here]
+2.Modify hello/views.py to match the following code, which creates a single view for the app's home page:
+
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Hello, Django!")
+3.Create a file, hello/urls.py, with the contents below. The urls.py file is where you specify patterns to route different URLs to their appropriate views. The code below contains one route to map root URL of the app ("") to the views.home function that you just added to hello/views.py:
+
+from django.urls import path
+from hello import views
+
+urlpatterns = [
+    path("", views.home, name="home"),
+]
+4.The web_project folder also contains a urls.py file, which is where URL routing is actually handled. Open web_project/urls.py and modify it to match the following code (you can retain the instructive comments if you like). This code pulls in the app's hello/urls.py using django.urls.include, which keeps the app's routes contained within the app. This separation is helpful when a project contains multiple apps.
+
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path("", include("hello.urls")),
+    path('admin/', admin.site.urls)
+
+
+
+Create a debugger launch profile#
+You're probably already wondering if there's an easier way to run the server and test the app without typing python manage.py runserver each time. Fortunately, there is! You can create a customized launch profile in VS Code, which is also used for the inevitable exercise of debugging.
+
+Switch to Run view in VS Code (using the left-side activity bar or F5). You may see the message "To customize Run and Debug create a launch.json file". This means that you don't yet have a launch.json file containing debug configurations. VS Code can create that for you if you click on the create a launch.json file link:
+
+Django tutorial: initial view of the debug panel
+
+Select the link and VS Code will prompt for a debug configuration. Select Django from the dropdown and VS Code will populate a new launch.json file with a Django run configuration. The launch.json file contains a number of debugging configurations, each of which is a separate JSON object within the configuration array.
+
+Scroll down to and examine the configuration with the name "Python: Django":
+
+{
+    "name": "Python: Django",
+    "type": "python",
+    "request": "launch",
+    "program": "${workspaceFolder}/manage.py",
+    "args": [
+        "runserver",
+    ],
+    "django": true
+},
+This configuration tells VS Code to run "${workspaceFolder}/manage.py" using the selected Python interpreter and the arguments in the args list. Launching the VS Code debugger with this configuration, then, is the same as running python manage.py runserver in the VS Code Terminal with your activated virtual environment. (You can add a port number like "5000" to args if desired.) The "django": true entry also tells VS Code to enable debugging of Django page templates, which you see later in this tutorial.
+
+Test the configuration by selecting the Run > Start Debugging menu command, or selecting the green Start Debugging arrow next to the list (F5):
+
+Django tutorial: start debugging/continue arrow on the debug toolbar
+
+Ctrl+click the http://127.0.0.1:8000/ URL in the terminal output window to open the browser and see that the app is running properly.
+
+Close the browser and stop the debugger when you're finished. To stop the debugger, use the Stop toolbar button (the red square) or the Run > Stop Debugging command (Shift+F5).
+
+You can now use the Run > Start Debugging at any time to test the app, which also has the benefit of automatically saving all modified files.
+
+
+Explore the debugger : 
+1.In hello/urls.py, add a route to the urlpatterns list:
+
+path("hello/<name>", views.hello_there, name="hello_there"),
+The first argument to path defines a route "hello/" that accepts a variable string called name. The string is passed to the views.hello_there function specified in the second argument to path.
+
+URL routes are case-sensitive. For example, the route /hello/<name> is distinct from /Hello/<name>. If you want the same view function to handle both, define paths for each variant.
+2.
+
