@@ -1,0 +1,88 @@
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+
+body
+{
+background-image:url(https://media.istockphoto.com/photos/university-student-concentration-on-their-final-exam-picture-id1152854813?k=20&m=1152854813&s=612x612&w=0&h=1oOROBDpKs7u1lAmxo_bHPqJoKEWfr217omkqYourrQ=);
+background-repeat:no-repeat;
+background-size: cover;
+height:100%;
+width:100%;
+
+}
+
+.header{
+background-color:#FF5733 ;
+height:10%
+
+
+}
+
+
+
+.login1
+{
+
+margin-top:15%;
+margin-left:35%;
+
+}
+
+.text
+{
+color:white;
+font-size:30px;
+
+font-family: Tahoma, "Trebuchet MS", sans-serif;
+text-align: center;
+padding-bottom:10px;
+}
+
+#login
+{
+margin-top:5%;
+margin-left:12%;
+color:#e23415;
+font-size:30px;
+font-family: Tahoma, "Trebuchet MS", sans-serif;
+
+}
+
+
+input
+{
+font-family:Ubuntu-Bold;
+width:37%;
+outline:none;
+border:none;
+color:#e23415;
+font-size: 18px;
+display:block;
+background-color: #e6e6e6;
+height:62px;
+padding: 0 10px 0 30px;
+opacity:0.8;
+
+}
+
+.button
+{
+width:37%;
+text-align:center;
+padding:0 10px 0 10px;
+background-color:#e23415;
+opacity:1.0;
+color:white;
+font-family: Tahoma, "Trebuchet MS", sans-serif;
+cursor:pointer;
+}
+
+.button:hover
+{
+background-color:#af561b;
+}
